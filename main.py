@@ -9,10 +9,13 @@ images themselves.
 
 from pathlib import Path
 
-TEXT = (
+# Two fragments, joined at write time so the memory reads as one breath.
+STAIRS = (
     "Half asleep, your father carries you up the stairs, "
     "your cheek against his shoulder, "
     "his shirt smelling of rain and soap. "
+)
+BLANKET = (
     "The blanket goes over you, still warm from the afternoon sun, "
     "and the whole house lowers its voice."
 )
@@ -21,9 +24,13 @@ OUTPUT_DIR = Path("/output")
 OUTPUT_PATH = OUTPUT_DIR / "entry.txt"
 
 
+def assemble_text() -> str:
+    return STAIRS + BLANKET
+
+
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(TEXT + "\n", encoding="utf-8")
+    OUTPUT_PATH.write_text(assemble_text() + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
